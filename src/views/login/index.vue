@@ -24,14 +24,13 @@ const regData: formData = reactive({
 const Register = async () => {
     const res = await register(regData)
     // console.log(res)
-    const msg = res.message
-    if (msg == '账号已存在') {
+    if (res.message == '账号已存在') {
         ElMessage({
             message: '账号已存在.',
             type: 'warning',
             plain: true
         })
-    } else if (msg == '注册成功') {
+    } else if (res.message == '注册成功') {
         ElMessage({
             message: '账号注册成功.',
             type: 'success',
@@ -97,7 +96,8 @@ const Login = async () => {
                                     <el-input v-model="regData.repassword" placeholder="请再次输入密码" />
                                 </el-form-item>
                                 <div class="reg-btn" style="display: flex; justify-content: center">
-                                    <el-button type="primary" plain style="width: 111px" @click="Register">注册</el-button>
+                                    <el-button type="primary" plain style="width: 111px"
+                                        @click="Register">注册</el-button>
                                 </div>
                             </el-form>
                         </el-tab-pane>
