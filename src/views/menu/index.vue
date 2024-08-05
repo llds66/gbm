@@ -75,7 +75,7 @@ import { Menu as IconMenu, ArrowDown } from '@element-plus/icons-vue'
                         <el-icon><icon-menu /></el-icon>
                         <span>登录日志</span>
                     </el-menu-item>
-                    <el-menu-item index="8">
+                    <el-menu-item index="person">
                         <el-icon><icon-menu /></el-icon>
                         <span>系统设置</span>
                     </el-menu-item>
