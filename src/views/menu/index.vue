@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { Menu as IconMenu, ArrowDown } from '@element-plus/icons-vue'
+import { userStore } from '@/store/user';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
+const store:any = userStore()
+const logout = async ()=>{
+    await store.logout()
+    router.push('/')
+}
 </script>
 
 <template>
@@ -103,6 +111,7 @@ import { Menu as IconMenu, ArrowDown } from '@element-plus/icons-vue'
                                     <el-dropdown-item>设置</el-dropdown-item>
                                     <el-dropdown-item>设置头像</el-dropdown-item>
                                     <el-dropdown-item>个人中心</el-dropdown-item>
+                                    <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>

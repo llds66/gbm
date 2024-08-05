@@ -16,6 +16,8 @@
     "element-plus": "^2.7.6",
     "fast-glob": "^3.3.2",
     "mitt": "^3.0.1",
+    "pinia": "^2.2.0",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "sass": "^1.77.6",
     "vue": "^3.4.29",
     "vue-router": "^4.4.0"

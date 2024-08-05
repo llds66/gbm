@@ -4,6 +4,7 @@ import { register, login, forgetPassword } from '@/api/login.js'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 const router = useRouter()
+import {userStore} from '@/store/user'
 
 // tab
 const activeName = ref('login')
@@ -42,12 +43,14 @@ const Register = async () => {
     }
 }
 // 登录
+const store:any = userStore()
 const loginData: formData = reactive({
     account: null,
     password: ''
 })
 const Login = async () => {
     const res = await login(loginData) as any
+    // console.log('登录res:', res)
     console.log('登录res:', res)
     if (res.code == 0) {
         ElMessage({
@@ -55,6 +58,8 @@ const Login = async () => {
             type: 'success',
             plain: true
         })
+        await store.setToken(res.token)
+        await store.getUserInfo()
         router.push('/home')
     } else if (res.code == 1) {
         ElMessage({

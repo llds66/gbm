@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import pinia from './store'
 
 import './assets/main.css'
 import ElementPlus from 'element-plus'
@@ -12,6 +13,7 @@ import 'virtual:svg-icons-register'
 
 const app = createApp(App)
 app.use(router)
+app.use(pinia)
 app.use(ElementPlus, { locale: zhCn })
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

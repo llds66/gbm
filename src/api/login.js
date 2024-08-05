@@ -1,7 +1,7 @@
 import instance from '@/http/index.js'
 
 /**
- * 登录
+ * 注册
  * @param {*} data {account:String,password:String}
  */
 export const register = (data) =>{
