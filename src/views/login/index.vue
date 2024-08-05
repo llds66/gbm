@@ -1,19 +1,22 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import { register, login } from '@/api/login.js'
+import { register, login, forgetPassword } from '@/api/login.js'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 const router = useRouter()
+
 // tab
 const activeName = ref('login')
 const handleClick = () => {
-    console.log('11')
+    console.log('tab')
 }
 
 interface formData {
     account: number
-    password: string
-    repassword?: string
+    password?: string
+    repassword?: string,
+    email?: string,
+    newPassword?: string
 }
 // 注册
 const regData: formData = reactive({
@@ -22,17 +25,17 @@ const regData: formData = reactive({
     repassword: ''
 })
 const Register = async () => {
-    const res = await register(regData)
-    // console.log(res)
-    if (res.message == '账号已存在') {
+    const res = await register(regData) as any
+    console.log('注册res:', res)
+    if (res.code == 1) {
         ElMessage({
-            message: '账号已存在.',
+            message: res.message,
             type: 'warning',
             plain: true
         })
-    } else if (res.message == '注册成功') {
+    } else if (res.code == 0) {
         ElMessage({
-            message: '账号注册成功.',
+            message: res.message,
             type: 'success',
             plain: true
         })
@@ -44,21 +47,47 @@ const loginData: formData = reactive({
     password: ''
 })
 const Login = async () => {
-    const res = await login(loginData)
-    console.log(res)
-    if (res.status == 0) {
+    const res = await login(loginData) as any
+    console.log('登录res:', res)
+    if (res.code == 0) {
         ElMessage({
-            message: '登录成功.',
+            message: res.message,
             type: 'success',
             plain: true
         })
         router.push('/home')
-    } else if (res.status == 1) {
+    } else if (res.code == 1) {
         ElMessage({
-            message: '登录失败 请检查用户名或者密码',
+            message: res.message,
             type: 'warning',
             plain: true
         })
+    }
+}
+
+// 重置密码
+const forgetPasswordData: formData = reactive({
+    account: null,
+    email: '',
+    newPassword: ''
+})
+const handleForgetPassword = async () => {
+    const res = await forgetPassword(forgetPasswordData) as any
+    console.log('重置密码res:', res)
+    if (res.code == 0) {
+        if (res.code == 0) {
+            ElMessage({
+                message: res.message,
+                type: 'success',
+                plain: true
+            })
+        } else if (res.code == 1) {
+            ElMessage({
+                message: res.message,
+                type: 'warning',
+                plain: true
+            })
+        }
     }
 }
 </script>
@@ -69,8 +98,8 @@ const Login = async () => {
             <el-main class="main_container">
                 <el-card style="max-width: 480px; margin: 30px auto">
                     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
+                        <!-- 登录 -->
                         <el-tab-pane label="登录" name="login">
-                            <!-- 登录表单 -->
                             <el-form :model="loginData" label-width="auto" style="max-width: 600px; height: 162px">
                                 <el-form-item label="用户名" style="margin-top: 20px">
                                     <el-input v-model="loginData.account" placeholder="请输入账号" />
@@ -83,8 +112,8 @@ const Login = async () => {
                                 </div>
                             </el-form>
                         </el-tab-pane>
+                        <!-- 注册 -->
                         <el-tab-pane label="注册" name="register">
-                            <!-- 注册表单 -->
                             <el-form :model="regData" label-width="auto" style="max-width: 600px">
                                 <el-form-item label="用户名">
                                     <el-input v-model="regData.account" placeholder="请输入账号" />
@@ -98,6 +127,24 @@ const Login = async () => {
                                 <div class="reg-btn" style="display: flex; justify-content: center">
                                     <el-button type="primary" plain style="width: 111px"
                                         @click="Register">注册</el-button>
+                                </div>
+                            </el-form>
+                        </el-tab-pane>
+                        <!-- 重置密码 -->
+                        <el-tab-pane label="重置密码" name="forgetPassword">
+                            <el-form :model="forgetPasswordData" label-width="auto" style="max-width: 600px">
+                                <el-form-item label="用户名">
+                                    <el-input v-model="forgetPasswordData.account" placeholder="请输入账号" />
+                                </el-form-item>
+                                <el-form-item label="邮箱">
+                                    <el-input v-model="forgetPasswordData.email" placeholder="请输入邮箱" />
+                                </el-form-item>
+                                <el-form-item label="确认密码">
+                                    <el-input v-model="forgetPasswordData.newPassword" placeholder="请输入新密码" />
+                                </el-form-item>
+                                <div class="reg-btn" style="display: flex; justify-content: center">
+                                    <el-button type="primary" plain style="width: 111px"
+                                        @click="handleForgetPassword">重置密码</el-button>
                                 </div>
                             </el-form>
                         </el-tab-pane>
