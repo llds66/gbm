@@ -60,7 +60,8 @@ const Login = async () => {
         })
         await store.setToken(res.token)
         await store.getUserInfo()
-        router.push('/home')
+        router.push('/')
+        console.log(1);
     } else if (res.code == 1) {
         ElMessage({
             message: res.message,

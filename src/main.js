@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import pinia from './store'
+import '@/router/config/permission.js'
 
 import './assets/main.css'
 import ElementPlus from 'element-plus'

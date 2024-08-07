@@ -4,10 +4,10 @@ import { userStore } from '@/store/user';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
-const store:any = userStore()
-const logout = async ()=>{
+const store: any = userStore()
+const logout = async () => {
     await store.logout()
-    router.push('/')
+    router.push('/login')
 }
 </script>
 
