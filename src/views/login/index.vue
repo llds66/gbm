@@ -4,7 +4,7 @@ import { register, login, forgetPassword } from '@/api/login.js'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-import {userStore} from '@/store/user'
+import { userStore } from '@/store/user'
 
 // tab
 const activeName = ref('login')
@@ -43,7 +43,7 @@ const Register = async () => {
     }
 }
 // 登录
-const store:any = userStore()
+const store: any = userStore()
 const loginData: formData = reactive({
     account: null,
     password: ''

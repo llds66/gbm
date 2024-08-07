@@ -1,6 +1,5 @@
 import axios from 'axios'
-import {userStore} from '@/store/user'
-const store = userStore()
+import { userStore } from '@/store/user'
 // 创建axiso实例
 const instance = axios.create({
   baseURL: 'http://localhost:3000',
@@ -11,7 +10,7 @@ const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
-  const token = store.token;
+  const token = userStore.token;
   if (token) {
     config.headers['Authorization'] = `${token}`;
   }
