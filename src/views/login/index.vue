@@ -13,10 +13,10 @@ const handleClick = () => {
 }
 
 interface formData {
-    account: number
+    account: string
     password?: string
-    repassword?: string,
-    email?: string,
+    repassword?: string
+    email?: string
     newPassword?: string
 }
 // 注册
@@ -45,8 +45,8 @@ const Register = async () => {
 // 登录
 const store: any = userStore()
 const loginData: formData = reactive({
-    account: null,
-    password: ''
+    account: 'demo0805',
+    password: 'Demo0805'
 })
 const Login = async () => {
     const res = await login(loginData) as any

@@ -15,3 +15,10 @@ defineStore
 
 使用：导入 实例化 .state .getter .action
 pinia-plugin-persistedstate插件 数据持久化
+
+
+## 疑
+1.向修改个人信息前端后端不同的数据如何处理？ 计算属性 / 函数？
+
+## TODO
+1. 修改个人信息刷新数据获取问题

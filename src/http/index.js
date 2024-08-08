@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { userStore } from '@/store/user'
+import { ElMessage } from 'element-plus'
+
 // 创建axiso实例
 const instance = axios.create({
   baseURL: 'http://localhost:3000',
@@ -22,6 +24,15 @@ instance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
+  // 业务状态码判断
+  const { code, message } = response.data
+  if (code == 1) {
+    ElMessage({
+      message: message,
+      type: 'warning',
+      plain: true
+    })
+  }
   // 2xx 范围内的状态码都会触发该函数。
   // 对响应数据做点什么
   return response.data;
